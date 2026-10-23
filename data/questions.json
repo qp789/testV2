@@ -1,0 +1,311 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "q01",
+      "category": "基础",
+      "difficulty": 1,
+      "prompt": "表达式 [1, 2, 3] + [4] 的结果是？",
+      "options": [
+        "[1, 2, 3, 4]",
+        "[1, 2, 3, [4]]",
+        "抛出 TypeError",
+        "[5]"
+      ],
+      "explanation": "列表的 + 是拼接，返回新列表，不会把 [4] 当成一个元素；追加单个元素应该用 append 或 extend。",
+      "kind": "single",
+      "answers": [
+        0
+      ]
+    },
+    {
+      "id": "q02",
+      "category": "基础",
+      "difficulty": 1,
+      "prompt": "下面哪个表达式的求值结果是 False？",
+      "options": [
+        "bool(\"0\")",
+        "bool([])",
+        "bool([0])",
+        "bool({0})"
+      ],
+      "explanation": "空容器为假，非空容器恒为真，即使里面装的是 0；所以 bool(\"0\")、bool([0])、bool({0}) 都是 True。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q03",
+      "category": "数据结构",
+      "difficulty": 2,
+      "prompt": "已知 d = {\"a\": 1}，哪种写法在访问不存在的键 \"b\" 时会抛出 KeyError？",
+      "options": [
+        "d.get(\"b\")",
+        "d[\"b\"]",
+        "d.get(\"b\", 0)",
+        "\"b\" in d"
+      ],
+      "explanation": "d[\"b\"] 走 __getitem__，键不存在直接抛 KeyError；get 返回 None 或默认值，in 只返回布尔值。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q04",
+      "category": "函数",
+      "difficulty": 2,
+      "prompt": "连续调用 add(1)、add(2)，返回值分别是？\n\ndef add(x, bucket=[]):\n    bucket.append(x)\n    return bucket",
+      "options": [
+        "[1] 和 [2]",
+        "[1] 和 [1, 2]",
+        "两次都返回 []",
+        "第二次调用抛出 TypeError"
+      ],
+      "explanation": "默认参数在函数定义时只求值一次，bucket 始终指向同一个列表对象，两次调用会持续追加；正确写法是默认值用 None，函数内部再创建列表。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q05",
+      "category": "基础",
+      "difficulty": 2,
+      "prompt": "a = [1, 2, 3]，b = a，执行 b.append(4) 后 a 的值是？",
+      "options": [
+        "[1, 2, 3]",
+        "[1, 2, 3, 4]",
+        "[4]",
+        "抛出 AttributeError"
+      ],
+      "explanation": "b = a 只复制引用，两者指向同一个列表对象，通过 b 修改会同时反映到 a。需要独立副本时用 a.copy() 或 list(a)。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q06",
+      "category": "迭代器",
+      "difficulty": 3,
+      "prompt": "执行下面的代码，输出是什么？\n\nfuncs = [lambda: i for i in range(3)]\nprint([f() for f in funcs])",
+      "options": [
+        "[0, 1, 2]",
+        "[2, 2, 2]",
+        "[0, 0, 0]",
+        "抛出 NameError"
+      ],
+      "explanation": "lambda 里的 i 是闭包变量，按引用捕获；推导结束后 i 为 2，三个 lambda 读到的都是同一个 i。用 lambda i=i: i 可以固定当前值。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q07",
+      "category": "迭代器",
+      "difficulty": 2,
+      "prompt": "sorted([3, 1, 2], key=lambda x: -x) 的结果是？",
+      "options": [
+        "[1, 2, 3]",
+        "[3, 2, 1]",
+        "[3, 1, 2]",
+        "抛出 TypeError"
+      ],
+      "explanation": "sorted 默认升序，key 把元素映射成相反数再比较，等价于按原值降序，结果为 [3, 2, 1]。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q08",
+      "category": "迭代器",
+      "difficulty": 3,
+      "prompt": "g = (x * x for x in range(4))，先 sum(g)，再 sum(g)，两次结果分别是？",
+      "options": [
+        "14 和 14",
+        "14 和 0",
+        "0 和 14",
+        "第二次抛出 RuntimeError"
+      ],
+      "explanation": "生成器是一次性迭代器，第一次 sum 已把元素耗尽，第二次遍历拿不到元素，结果为 0。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q09",
+      "category": "异常",
+      "difficulty": 3,
+      "prompt": "函数 f() 返回什么？\n\ndef f():\n    try:\n        return 1\n    finally:\n        return 2",
+      "options": [
+        "1",
+        "2",
+        "None",
+        "抛出 ValueError"
+      ],
+      "explanation": "finally 一定会执行；如果 finally 里也有 return，它会覆盖 try 中尚未返回的值，因此 f() 返回 2。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q10",
+      "category": "面向对象",
+      "difficulty": 2,
+      "prompt": "关于 @staticmethod 和 @classmethod，下面说法正确的是？",
+      "options": [
+        "staticmethod 的第一个参数是 cls",
+        "staticmethod 不接收隐式第一参数，classmethod 接收类对象",
+        "两者都必须先实例化才能调用",
+        "classmethod 不能被子类调用"
+      ],
+      "explanation": "staticmethod 等价于普通函数，不自动传入 self 或 cls；classmethod 会把类对象作为第一个参数，通过子类调用时拿到的是子类。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q11",
+      "category": "数据结构",
+      "difficulty": 2,
+      "prompt": "a = [[1], [2]]，b = copy.copy(a)，再执行 b[0].append(9)，结果是？",
+      "options": [
+        "只有 b 改变，a 不受影响",
+        "a 和 b 的内层列表是同一个对象，a 也变成 [[1, 9], [2]]",
+        "copy.copy 会自动深拷贝，两者互不影响",
+        "抛出 RecursionError"
+      ],
+      "explanation": "copy.copy 是浅拷贝：只复制外层列表，内层元素仍是原对象；要彻底隔离嵌套结构需要 copy.deepcopy。",
+      "kind": "single",
+      "answers": [
+        1
+      ]
+    },
+    {
+      "id": "q12",
+      "category": "基础",
+      "difficulty": 1,
+      "prompt": "循环里反复 result += s 与先收集片段再 \"\".join(parts)，后者的主要优势是？",
+      "options": [
+        "join 通常更快，且避免产生大量临时字符串",
+        "+= 会修改原字符串对象",
+        "join 会自动把内容转成小写",
+        "两者完全等价，没有性能差异"
+      ],
+      "explanation": "字符串不可变，每次 += 都新建字符串并复制旧内容，循环多时是 O(n²)；join 只分配一次结果，效率高得多。",
+      "kind": "single",
+      "answers": [
+        0
+      ]
+    },
+    {
+      "id": "q13",
+      "category": "函数",
+      "difficulty": 3,
+      "prompt": "定义 def f(a, *args, b=1, **kw)，调用 f(1, 2, 3, 4) 时 args 的值是？",
+      "options": [
+        "(2, 3, 4)",
+        "(1, 2, 3, 4)",
+        "(4,)",
+        "调用直接报错"
+      ],
+      "explanation": "第一个位置参数绑定给 a，其余位置参数全部收进 args，所以 args 是 (2, 3, 4)。",
+      "kind": "single",
+      "answers": [
+        0
+      ]
+    },
+    {
+      "id": "q14",
+      "category": "面向对象",
+      "difficulty": 3,
+      "prompt": "下面的代码输出什么？\n\nclass A:\n    x = 1\n\nclass B(A):\n    pass\n\nb = B()\nb.x = 2\ndel b.x\nprint(b.x)",
+      "options": [
+        "1",
+        "2",
+        "抛出 AttributeError",
+        "None"
+      ],
+      "explanation": "b.x = 2 只创建了实例属性；del b.x 删除后，属性查找回退到类，读到继承来的 A.x = 1。",
+      "kind": "single",
+      "answers": [
+        0
+      ]
+    },
+    {
+      "id": "q15",
+      "category": "迭代器",
+      "difficulty": 2,
+      "prompt": "list(range(10))[1:8:2] 的结果是？",
+      "options": [
+        "[1, 3, 5, 7]",
+        "[1, 3, 5, 7, 9]",
+        "[2, 4, 6, 8]",
+        "[1, 2, 3, 4, 5, 6, 7]"
+      ],
+      "explanation": "切片 [start:stop:step] 从下标 1 开始、到 8 之前结束、步长 2，取到 1、3、5、7。",
+      "kind": "single",
+      "answers": [
+        0
+      ]
+    },
+    {
+      "id": "q16",
+      "kind": "multi",
+      "category": "基础",
+      "difficulty": 2,
+      "prompt": "下面哪些表达式的结果是 True？（多选）",
+      "options": [
+        "bool([1])",
+        "bool([])",
+        "bool(\"0\")",
+        "bool({})"
+      ],
+      "answers": [
+        0,
+        2
+      ],
+      "explanation": "非空容器和任意非空字符串都是 True；空列表、空字典为 False。"
+    },
+    {
+      "id": "q17",
+      "kind": "judge",
+      "category": "函数",
+      "difficulty": 1,
+      "prompt": "判断：Python 的函数参数默认值在每次调用时重新求值。",
+      "options": [
+        "正确",
+        "错误"
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "默认值在函数定义时求值一次，之后所有调用共享同一对象。"
+    },
+    {
+      "id": "q18",
+      "kind": "multi",
+      "category": "数据结构",
+      "difficulty": 3,
+      "prompt": "下面哪些操作会原地修改列表 lst？（多选）",
+      "options": [
+        "lst.append(1)",
+        "lst + [1]",
+        "lst.sort()",
+        "sorted(lst)"
+      ],
+      "answers": [
+        0,
+        2
+      ],
+      "explanation": "append 和 sort 原地修改；+ 与 sorted 返回新对象。"
+    }
+  ]
+}
